@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+REFERENCE_DATE=2020-03-08
+REFERENCE_NUMBER=200308
+MAGIC_NUMBER=$( ($(date +%s) - $(date --date=$REFERENCE_DATE +%s) )/(60*60*24))
+ACTUAL_NUMBER=$(echo "200308+$MAGIC_NUMBER"|bc)
+echo $ACTUAL_NUMBER
+URL=$(wget -r --spider -l1 -A jpg  https://apod.nasa.gov/apod/ap$(echo "200308+$MAGIC_NUMBER"|bc).html 2>&1 | grep -Eio http.+jpg | head --lines=1)
+echo $URL
